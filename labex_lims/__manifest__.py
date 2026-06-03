@@ -1,5 +1,5 @@
 {
-    'name': 'Laboratory Information Management System (LIMS) Core',
+    'name': 'Labex LIMS Core',
     'version': '1.0.0',
     'category': 'Healthcare/Laboratory',
     'summary': 'Advanced Laboratory Information Management System for Odoo',
