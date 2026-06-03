@@ -21,6 +21,7 @@
         'views/lims_sample_views.xml',
         'views/lims_equipment_views.xml',
         'views/lims_config_views.xml',
+        'views/res_company_views.xml',
         'reports/lims_sample_report.xml',
     ],
     'demo': [],

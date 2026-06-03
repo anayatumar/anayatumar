@@ -26,3 +26,9 @@ class LimsMethodology(models.Model):
     code = fields.Char(string='Method Code')
     description = fields.Text(string='Description/SOP')
     version = fields.Char(string='Version', default='1.0')
+
+class ResCompany(models.Model):
+    _inherit = 'res.company'
+
+    lab_tagline = fields.Char(string='Laboratory Tagline')
+    lab_license_no = fields.Char(string='Lab License No.')

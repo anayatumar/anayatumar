@@ -16,48 +16,62 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <div class="page" style="font-family: 'Inter', sans-serif; font-size: 13px; color: #333;">
-                        <!-- Report Header -->
-                        <div class="row" style="border-bottom: 2px solid #1B365D; padding-bottom: 10px; margin-bottom: 20px;">
+                        <!-- Laboratory Contact Details Header -->
+                        <div class="row" style="margin-bottom: 20px; border-bottom: 3px solid #1B365D; padding-bottom: 10px;">
                             <div class="col-6">
-                                <h2 style="color: #1B365D; margin-top: 0;">Laboratory Report</h2>
-                                <p style="margin: 0;"><strong>Lab ID:</strong> <span t-field="o.name"/></p>
-                                <p style="margin: 0;"><strong>Collection Date:</strong> <span t-field="o.collection_date"/></p>
+                                <h2 style="color: #1B365D; margin: 0;"><span t-field="res_company.name"/></h2>
+                                <p style="margin: 0; font-size: 11px; color: #64748B;"><span t-field="res_company.lab_tagline"/></p>
+                                <p style="margin: 0; font-size: 11px;">
+                                    <span t-field="res_company.street"/>, <span t-field="res_company.city"/>, <span t-field="res_company.country_id.name"/>
+                                </p>
+                            </div>
+                            <div class="col-6 text-right" style="font-size: 11px;">
+                                <p style="margin: 0;"><strong>Phone:</strong> <span t-field="res_company.phone"/></p>
+                                <p style="margin: 0;"><strong>Email:</strong> <span t-field="res_company.email"/></p>
+                                <p style="margin: 0;"><strong>Website:</strong> <span t-field="res_company.website"/></p>
+                                <p style="margin: 0;"><strong>License:</strong> <span t-field="res_company.lab_license_no"/></p>
+                            </div>
+                        </div>
+
+                        <!-- Report ID and Status Bar -->
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-6">
+                                <h3 style="color: #1B365D; margin-top: 0;">Clinical Laboratory Report</h3>
+                                <strong>Lab ID:</strong> <span t-field="o.name"/>
                             </div>
                             <div class="col-6 text-right">
-                                <p style="margin: 0;"><strong>Status:</strong> <span t-field="o.state"/></p>
-                                <p style="margin: 0;"><strong>Printed On:</strong> <span t-esc="context_today().strftime('%Y-%m-%d %H:%M:%S')"/></p>
+                                <strong>Report Status:</strong> <span t-field="o.state" style="text-transform: uppercase; color: #2D5A27;"/><br/>
+                                <strong>Date:</strong> <span t-esc="context_today().strftime('%B %d, %Y')"/>
                             </div>
                         </div>
 
                         <!-- Patient Demographics Section -->
                         <div style="background-color: #F8FAFC; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #E2E8F0;">
-                            <h4 style="margin-top: 0; color: #1B365D; font-size: 16px; border-bottom: 1px solid #CBD5E1; padding-bottom: 5px; margin-bottom: 10px;">Patient Information</h4>
                             <div class="row">
                                 <div class="col-4">
-                                    <p style="margin: 0;"><strong>Name:</strong> <span t-field="o.patient_id.name"/></p>
+                                    <p style="margin: 0;"><strong>Patient Name:</strong> <span t-field="o.patient_id.name"/></p>
                                     <p style="margin: 0;"><strong>MR No:</strong> <span t-field="o.patient_id.mr_no"/></p>
                                 </div>
                                 <div class="col-4">
                                     <p style="margin: 0;"><strong>Age / Gender:</strong> <span t-field="o.patient_id.age"/> / <span t-field="o.patient_id.gender"/></p>
-                                    <p style="margin: 0;"><strong>Contact:</strong> <span t-field="o.patient_id.contact_no"/></p>
-                                </div>
-                                <div class="col-4">
                                     <p style="margin: 0;"><strong>Referred By:</strong> <span t-field="o.patient_id.referred_by"/></p>
-                                    <p style="margin: 0;"><strong>External ID:</strong> <span t-field="o.external_id"/></p>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <p style="margin: 0;"><strong>Collected:</strong> <span t-field="o.collection_date"/></p>
+                                    <p style="margin: 0;"><strong>Received:</strong> <span t-field="o.received_date"/></p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Test Results Table -->
-                        <h4 style="color: #1B365D; border-left: 4px solid #1B365D; padding-left: 10px; margin-bottom: 15px;">Clinical Findings</h4>
                         <table class="table table-bordered table-sm" style="width: 100%; border-collapse: collapse;">
                             <thead style="background-color: #1B365D; color: white;">
                                 <tr>
-                                    <th style="padding: 8px;">Test Description</th>
+                                    <th style="padding: 8px;">Test Name</th>
                                     <th style="padding: 8px;" class="text-center">Result</th>
                                     <th style="padding: 8px;" class="text-center">Units</th>
-                                    <th style="padding: 8px;" class="text-center">Reference Range</th>
-                                    <th style="padding: 8px;" class="text-center">Flag</th>
+                                    <th style="padding: 8px;" class="text-center">Normal Range</th>
+                                    <th style="padding: 8px;" class="text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +79,7 @@
                                     <tr style="border-bottom: 1px solid #E2E8F0;">
                                         <td style="padding: 8px;">
                                             <strong t-field="line.test_id.name"/><br/>
-                                            <span t-field="line.test_id.department" style="font-size: 11px; color: #64748B;"/>
+                                            <span t-field="line.test_id.department" style="font-size: 10px; color: #64748B;"/>
                                         </td>
                                         <td style="padding: 8px;" class="text-center">
                                             <strong><span t-field="line.result"/></strong>
@@ -73,14 +87,17 @@
                                         <td style="padding: 8px;" class="text-center"><span t-field="line.unit_id.name"/></td>
                                         <td style="padding: 8px;" class="text-center"><span t-field="line.reference_range"/></td>
                                         <td style="padding: 8px;" class="text-center">
-                                            <span t-if="line.state == 'done'" style="color: #2D5A27; font-weight: bold;">Normal</span>
-                                            <span t-if="line.state == 'pending'" style="color: #F59E0B;">Pending</span>
+                                            <span t-if="line.state == 'done'" style="color: #2D5A27; font-weight: bold;">Final</span>
+                                            <span t-else="" style="color: #F59E0B;">In Progress</span>
                                         </td>
                                     </tr>
-                                    <!-- Conditional: If test has a report pattern or extra methodology notes -->
+                                    <!-- Reporting Pattern / Descriptive Findings -->
                                     <tr t-if="line.test_id.report_pattern">
-                                        <td colspan="5" style="padding: 8px; background-color: #F8FAFC; font-style: italic; color: #475569;">
-                                            <span t-field="line.test_id.report_pattern"/>
+                                        <td colspan="5" style="padding: 10px; background-color: #FDFDFD; font-size: 12px; color: #1E293B; border-top: none;">
+                                            <div style="border-left: 2px solid #CBD5E1; padding-left: 10px;">
+                                                <strong>Finding / Pattern:</strong><br/>
+                                                <span t-field="line.test_id.report_pattern"/>
+                                            </div>
                                         </td>
                                     </tr>
                                 </t>
@@ -89,29 +106,28 @@
 
                         <!-- Footnotes and Interpretation -->
                         <div class="row mt-4" style="margin-top: 30px; border-top: 1px solid #E2E8F0; padding-top: 15px;">
-                            <div class="col-8">
-                                <p style="font-size: 11px; color: #64748B;">
-                                    <strong>Disclaimer:</strong> This clinical report is for use by qualified medical professionals only. Results should be interpreted in conjunction with the patient's clinical history.
+                            <div class="col-9">
+                                <p style="font-size: 10px; color: #64748B;">
+                                    <strong>Interpretation Note:</strong> All results should be correlated clinically. A single abnormal result might not necessarily indicate a disease state. Please consult your physician for a full diagnosis.
                                 </p>
                             </div>
-                            <div class="col-4 text-right">
-                                <div style="border: 1px solid #E2E8F0; padding: 10px; border-radius: 4px; display: inline-block;">
-                                    <p style="margin: 0; font-size: 10px;">Verify Authenticity</p>
-                                    <div style="width: 60px; height: 60px; background-color: #333; margin: 0 auto; color: white; display: flex; align-items: center; justify-content: center; font-size: 8px;">QR CODE</div>
+                            <div class="col-3 text-right">
+                                <div style="border: 1px solid #E2E8F0; padding: 5px; border-radius: 4px; display: inline-block;">
+                                    <div style="width: 50px; height: 50px; background-color: #333; margin: 0 auto; color: white; display: flex; align-items: center; justify-content: center; font-size: 7px;">VERIFY</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Bottom Signature Section -->
-                        <div class="row" style="margin-top: 50px;">
+                        <!-- Signature Section -->
+                        <div class="row" style="margin-top: 60px;">
                             <div class="col-6 text-center">
                                 <div style="border-top: 1px solid #333; width: 150px; margin: 0 auto; padding-top: 5px;">
-                                    <strong>Lab Technician</strong>
+                                    <strong>Lab Technologist</strong>
                                 </div>
                             </div>
                             <div class="col-6 text-center">
                                 <div style="border-top: 1px solid #333; width: 150px; margin: 0 auto; padding-top: 5px;">
-                                    <strong>Pathologist</strong>
+                                    <strong>Consultant Pathologist</strong>
                                 </div>
                             </div>
                         </div>
