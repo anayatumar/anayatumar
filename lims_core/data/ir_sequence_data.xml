@@ -4,8 +4,16 @@
         <record id="seq_lims_sample" model="ir.sequence">
             <name>LIMS Sample Sequence</name>
             <code>lims.sample</code>
-            <prefix>SAM/%(year)s/</prefix>
+            <prefix>LAB/%(year)s/</prefix>
             <padding>5</padding>
+            <company_id eval="False"/>
+        </record>
+
+        <record id="seq_lims_patient" model="ir.sequence">
+            <name>LIMS Patient Sequence</name>
+            <code>lims.patient</code>
+            <prefix>MRN/</prefix>
+            <padding>6</padding>
             <company_id eval="False"/>
         </record>
     </data>

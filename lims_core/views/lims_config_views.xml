@@ -47,7 +47,9 @@
         <arch type="xml">
             <tree string="Test Types">
                 <field name="name"/>
+                <field name="short_name"/>
                 <field name="code"/>
+                <field name="department"/>
                 <field name="category"/>
             </tree>
         </arch>
@@ -62,14 +64,27 @@
                     <group>
                         <group>
                             <field name="name"/>
+                            <field name="short_name"/>
                             <field name="code"/>
+                            <field name="department"/>
                             <field name="category"/>
                         </group>
                         <group>
-                            <field name="methodology_id"/>
+                            <field name="sample_requirement"/>
+                            <field name="reporting_time"/>
+                            <field name="result_type"/>
                             <field name="default_unit_id"/>
+                            <field name="normal_range"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Reporting Details">
+                            <group>
+                                <field name="methodology_id"/>
+                                <field name="report_pattern"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </arch>
@@ -81,11 +96,58 @@
         <view_mode>tree,form</view_mode>
     </record>
 
+    <!-- Test Profiles -->
+    <record id="view_lims_test_profile_tree" model="ir.ui.view">
+        <name>lims.test.profile.tree</name>
+        <model>lims.test.profile</model>
+        <arch type="xml">
+            <tree string="Test Profiles">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </arch>
+    </record>
+
+    <record id="view_lims_test_profile_form" model="ir.ui.view">
+        <name>lims.test.profile.form</name>
+        <model>lims.test.profile</model>
+        <arch type="xml">
+            <form string="Test Profile">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <notebook>
+                        <page string="Tests in Profile">
+                            <field name="test_ids"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </arch>
+    </record>
+
+    <record id="action_lims_test_profile" model="ir.actions.act_window">
+        <name>Test Profiles</name>
+        <res_model>lims.test.profile</res_model>
+        <view_mode>tree,form</view_mode>
+    </record>
+
     <menuitem id="menu_lims_test"
               name="Test Types"
               parent="menu_lims_configuration"
               action="action_lims_test"
               sequence="10"/>
+
+    <menuitem id="menu_lims_test_profile"
+              name="Test Profiles/Panels"
+              parent="menu_lims_configuration"
+              action="action_lims_test_profile"
+              sequence="15"/>
 
     <menuitem id="menu_lims_methodology"
               name="Methodologies"

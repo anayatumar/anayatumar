@@ -5,8 +5,9 @@
         <model>lims.sample</model>
         <arch type="xml">
             <tree string="Samples" decoration-info="state == 'draft'" decoration-warning="priority == '1'" decoration-danger="priority == '2'">
-                <field name="name"/>
-                <field name="patient_name"/>
+                <field name="name" string="Lab ID"/>
+                <field name="patient_id"/>
+                <field name="profile_id" string="Panel"/>
                 <field name="sample_type"/>
                 <field name="collection_date"/>
                 <field name="priority"/>
@@ -34,18 +35,19 @@
                     </div>
                     <group>
                         <group>
-                            <field name="patient_name"/>
-                            <field name="sample_type"/>
+                            <field name="patient_id"/>
+                            <field name="profile_id" string="Panel/Profile"/>
+                            <field name="external_id" string="Panel External ID"/>
                             <field name="priority" widget="priority"/>
                         </group>
                         <group>
+                            <field name="sample_type"/>
                             <field name="collection_date"/>
                             <field name="received_date" states="received,testing,validated"/>
-                            <field name="external_id"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Tests" name="tests">
+                        <page string="Test Results" name="tests">
                             <field name="test_ids">
                                 <tree editable="bottom">
                                     <field name="test_id"/>
@@ -68,12 +70,12 @@
     </record>
 
     <record id="action_lims_sample" model="ir.actions.act_window">
-        <name>Samples</name>
+        <name>Samples/Lab IDs</name>
         <res_model>lims.sample</res_model>
         <view_mode>tree,form</view_mode>
         <help type="html">
             <p class="o_view_nocontent_smiling_face">
-                Register your first laboratory sample!
+                Register your first laboratory sample and link it to a patient!
             </p>
         </help>
     </record>
