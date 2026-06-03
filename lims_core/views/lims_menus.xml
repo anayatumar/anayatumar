@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_lims_root"
+              name="LIMS"
+              web_icon="lims_core,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_lims_operations"
+              name="Operations"
+              parent="menu_lims_root"
+              sequence="10"/>
+
+    <menuitem id="menu_lims_configuration"
+              name="Configuration"
+              parent="menu_lims_root"
+              sequence="100"/>
+</odoo>

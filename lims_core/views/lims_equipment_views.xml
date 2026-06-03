@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_lims_equipment_tree" model="ir.ui.view">
+        <name>lims.equipment.tree</name>
+        <model model="lims.equipment">
+            <tree string="Equipment">
+                <field name="name"/>
+                <field name="model"/>
+                <field name="manufacturer"/>
+                <field name="next_calibration_date"/>
+                <field name="state"/>
+            </tree>
+        </model>
+    </record>
+
+    <record id="view_lims_equipment_form" model="ir.ui.view">
+        <name>lims.equipment.form</name>
+        <model model="lims.equipment">
+            <form string="Equipment">
+                <header>
+                    <field name="state" widget="statusbar" clickable="True"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="model"/>
+                            <field name="manufacturer"/>
+                        </group>
+                        <group>
+                            <field name="installation_date"/>
+                            <field name="last_calibration_date"/>
+                            <field name="next_calibration_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </model>
+    </record>
+
+    <record id="action_lims_equipment" model="ir.actions.act_window">
+        <name>Equipment</name>
+        <res_model>lims.equipment</res_model>
+        <view_mode>tree,form</view_mode>
+    </record>
+
+    <menuitem id="menu_lims_equipment"
+              name="Equipment"
+              parent="menu_lims_configuration"
+              action="action_lims_equipment"
+              sequence="20"/>
+</odoo>

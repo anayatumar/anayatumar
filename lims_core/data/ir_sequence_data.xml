@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_lims_sample" model="ir.sequence">
+            <name>LIMS Sample Sequence</name>
+            <code>lims.sample</code>
+            <prefix>SAM/%(year)s/</prefix>
+            <padding>5</padding>
+            <company_id eval="False"/>
+        </record>
+    </data>
+</odoo>

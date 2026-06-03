@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Methodology -->
+    <record id="view_lims_methodology_tree" model="ir.ui.view">
+        <name>lims.methodology.tree</name>
+        <model>lims.methodology</model>
+        <arch type="xml">
+            <tree string="Methodologies">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="version"/>
+            </tree>
+        </arch>
+    </record>
+
+    <record id="view_lims_methodology_form" model="ir.ui.view">
+        <name>lims.methodology.form</name>
+        <model>lims.methodology</model>
+        <arch type="xml">
+            <form string="Methodology">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="version"/>
+                    </group>
+                    <notebook>
+                        <page string="Description/SOP">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </arch>
+    </record>
+
+    <record id="action_lims_methodology" model="ir.actions.act_window">
+        <name>Methodologies</name>
+        <res_model>lims.methodology</res_model>
+        <view_mode>tree,form</view_mode>
+    </record>
+
+    <!-- Test Types -->
+    <record id="view_lims_test_tree" model="ir.ui.view">
+        <name>lims.test.tree</name>
+        <model>lims.test</model>
+        <arch type="xml">
+            <tree string="Test Types">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category"/>
+            </tree>
+        </arch>
+    </record>
+
+    <record id="view_lims_test_form" model="ir.ui.view">
+        <name>lims.test.form</name>
+        <model>lims.test</model>
+        <arch type="xml">
+            <form string="Test Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="methodology_id"/>
+                            <field name="default_unit_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </arch>
+    </record>
+
+    <record id="action_lims_test" model="ir.actions.act_window">
+        <name>Test Types</name>
+        <res_model>lims.test</res_model>
+        <view_mode>tree,form</view_mode>
+    </record>
+
+    <menuitem id="menu_lims_test"
+              name="Test Types"
+              parent="menu_lims_configuration"
+              action="action_lims_test"
+              sequence="10"/>
+
+    <menuitem id="menu_lims_methodology"
+              name="Methodologies"
+              parent="menu_lims_configuration"
+              action="action_lims_methodology"
+              sequence="30"/>
+</odoo>
