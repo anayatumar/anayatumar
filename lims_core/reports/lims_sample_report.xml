@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_lims_sample" model="ir.actions.report">
+        <name>Laboratory Report</name>
+        <model>lims.sample</model>
+        <report_type>qweb-pdf</report_type>
+        <report_name>lims_core.report_lims_sample_template</report_name>
+        <report_file>lims_core.report_lims_sample_template</report_file>
+        <print_report_name>'LabReport_%s' % (object.name)</print_report_name>
+        <binding_model_id ref="model_lims_sample"/>
+        <binding_type>report</binding_type>
+    </record>
+
+    <template id="report_lims_sample_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Inter', sans-serif; font-size: 13px; color: #333;">
+                        <!-- Report Header -->
+                        <div class="row" style="border-bottom: 2px solid #1B365D; padding-bottom: 10px; margin-bottom: 20px;">
+                            <div class="col-6">
+                                <h2 style="color: #1B365D; margin-top: 0;">Laboratory Report</h2>
+                                <p style="margin: 0;"><strong>Lab ID:</strong> <span t-field="o.name"/></p>
+                                <p style="margin: 0;"><strong>Collection Date:</strong> <span t-field="o.collection_date"/></p>
+                            </div>
+                            <div class="col-6 text-right">
+                                <p style="margin: 0;"><strong>Status:</strong> <span t-field="o.state"/></p>
+                                <p style="margin: 0;"><strong>Printed On:</strong> <span t-esc="context_today().strftime('%Y-%m-%d %H:%M:%S')"/></p>
+                            </div>
+                        </div>
+
+                        <!-- Patient Demographics Section -->
+                        <div style="background-color: #F8FAFC; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #E2E8F0;">
+                            <h4 style="margin-top: 0; color: #1B365D; font-size: 16px; border-bottom: 1px solid #CBD5E1; padding-bottom: 5px; margin-bottom: 10px;">Patient Information</h4>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p style="margin: 0;"><strong>Name:</strong> <span t-field="o.patient_id.name"/></p>
+                                    <p style="margin: 0;"><strong>MR No:</strong> <span t-field="o.patient_id.mr_no"/></p>
+                                </div>
+                                <div class="col-4">
+                                    <p style="margin: 0;"><strong>Age / Gender:</strong> <span t-field="o.patient_id.age"/> / <span t-field="o.patient_id.gender"/></p>
+                                    <p style="margin: 0;"><strong>Contact:</strong> <span t-field="o.patient_id.contact_no"/></p>
+                                </div>
+                                <div class="col-4">
+                                    <p style="margin: 0;"><strong>Referred By:</strong> <span t-field="o.patient_id.referred_by"/></p>
+                                    <p style="margin: 0;"><strong>External ID:</strong> <span t-field="o.external_id"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Test Results Table -->
+                        <h4 style="color: #1B365D; border-left: 4px solid #1B365D; padding-left: 10px; margin-bottom: 15px;">Clinical Findings</h4>
+                        <table class="table table-bordered table-sm" style="width: 100%; border-collapse: collapse;">
+                            <thead style="background-color: #1B365D; color: white;">
+                                <tr>
+                                    <th style="padding: 8px;">Test Description</th>
+                                    <th style="padding: 8px;" class="text-center">Result</th>
+                                    <th style="padding: 8px;" class="text-center">Units</th>
+                                    <th style="padding: 8px;" class="text-center">Reference Range</th>
+                                    <th style="padding: 8px;" class="text-center">Flag</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.test_ids" t-as="line">
+                                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                                        <td style="padding: 8px;">
+                                            <strong t-field="line.test_id.name"/><br/>
+                                            <span t-field="line.test_id.department" style="font-size: 11px; color: #64748B;"/>
+                                        </td>
+                                        <td style="padding: 8px;" class="text-center">
+                                            <strong><span t-field="line.result"/></strong>
+                                        </td>
+                                        <td style="padding: 8px;" class="text-center"><span t-field="line.unit_id.name"/></td>
+                                        <td style="padding: 8px;" class="text-center"><span t-field="line.reference_range"/></td>
+                                        <td style="padding: 8px;" class="text-center">
+                                            <span t-if="line.state == 'done'" style="color: #2D5A27; font-weight: bold;">Normal</span>
+                                            <span t-if="line.state == 'pending'" style="color: #F59E0B;">Pending</span>
+                                        </td>
+                                    </tr>
+                                    <!-- Conditional: If test has a report pattern or extra methodology notes -->
+                                    <tr t-if="line.test_id.report_pattern">
+                                        <td colspan="5" style="padding: 8px; background-color: #F8FAFC; font-style: italic; color: #475569;">
+                                            <span t-field="line.test_id.report_pattern"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Footnotes and Interpretation -->
+                        <div class="row mt-4" style="margin-top: 30px; border-top: 1px solid #E2E8F0; padding-top: 15px;">
+                            <div class="col-8">
+                                <p style="font-size: 11px; color: #64748B;">
+                                    <strong>Disclaimer:</strong> This clinical report is for use by qualified medical professionals only. Results should be interpreted in conjunction with the patient's clinical history.
+                                </p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <div style="border: 1px solid #E2E8F0; padding: 10px; border-radius: 4px; display: inline-block;">
+                                    <p style="margin: 0; font-size: 10px;">Verify Authenticity</p>
+                                    <div style="width: 60px; height: 60px; background-color: #333; margin: 0 auto; color: white; display: flex; align-items: center; justify-content: center; font-size: 8px;">QR CODE</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Signature Section -->
+                        <div class="row" style="margin-top: 50px;">
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid #333; width: 150px; margin: 0 auto; padding-top: 5px;">
+                                    <strong>Lab Technician</strong>
+                                </div>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid #333; width: 150px; margin: 0 auto; padding-top: 5px;">
+                                    <strong>Pathologist</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

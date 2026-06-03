@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lims_patient,lims.patient,model_lims_patient,base.group_user,1,1,1,1
+access_lims_sample,lims.sample,model_lims_sample,base.group_user,1,1,1,1
+access_lims_test,lims.test,model_lims_test,base.group_user,1,1,1,1
+access_lims_sample_test,lims.sample.test,model_lims_sample_test,base.group_user,1,1,1,1
+access_lims_equipment,lims.equipment,model_lims_equipment,base.group_user,1,1,1,1
+access_lims_methodology,lims.methodology,model_lims_methodology,base.group_user,1,1,1,1
+access_lims_test_profile,lims.test.profile,model_lims_test_profile,base.group_user,1,1,1,1
