@@ -10,8 +10,8 @@
         * Equipment Management
         * Results Recording and Validation
     """,
-    'author': 'Jules AI',
-    'website': 'https://www.yourcompany.com',
+    'author': 'Labex Odoo',
+    'website': 'https://github.com/labex-odoo',
     'depends': ['base', 'mail', 'stock', 'uom'],
     'data': [
         'security/ir.model.access.csv',
